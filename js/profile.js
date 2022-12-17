@@ -6,6 +6,7 @@ const TEXT = {
       [ "p", "I do some things." ],
       [ "br" ],
       [ "p", "Projects:" ],
+      [ "p", " - ", [ "w.a", "Espgbprint", "javascript:swapText('ESPGBPRINT')" ] ],
       [ "p", " - ", [ "w.a", "Dino VS", "javascript:swapText('DINOVS')" ] ],
       [ "p", " - ", [ "w.a", "Word Garden", "javascript:swapText('WORDGARDEN')" ] ],
       [ "p", " - ", [ "w.a", "Haskell Learning", "javascript:swapText('HASKELL')" ] ],
@@ -14,6 +15,16 @@ const TEXT = {
       [ "p", " - ", [ "w.a", "Notes", "javascript:swapText('NOTES')" ] ],
       [ "p", " - ", [ "w.a", "Game Jams", "javascript:swapText('GAMEJAMS')" ] ],
       [ "p", " - ", [ "w.a", "Others..", "javascript:swapText('OTHERS')" ] ]
+   ],
+   "ESPGBPRINT": [
+      [ "a", "../", "javascript:swapText('MAIN')" ],
+      [ "p", "PROJECT: Espgbprint" ],
+      [ "br" ],
+      [ "w.p", "Espgbprint is a Gameboy Printer emulator for the ESP8266." ],
+      [ "br" ],
+      [ "p", "Github: ", [ "w.a", "Gaunsessa/espgbprint", "https://github.com/Gaunsessa/espgbprint" ] ],
+      [ "br" ],
+      [ "img", "https://github.com/Gaunsessa/espgbprint/raw/main/examples/Gameboy%20Camera%20Dump%20Test%204.png" ]
    ],
    "DINOVS": [
       [ "a", "../", "javascript:swapText('MAIN')" ],
@@ -106,6 +117,11 @@ function createElm(inp) {
          elm.href      = inp[2];
 
          taken = 2;
+         break;
+      case "img":
+         elm.src = inp[1];
+
+         taken = 1;
          break;
    }
 
