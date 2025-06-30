@@ -9,4 +9,4 @@ Simple pastebin like notes site.
 <br>
 
 Hosted Version: [no.ef.je](https://no.ef.je)
-Github: [Gaunsessa/notes](https://github.com/Gaunsessa/notes)
+Github: [Gaunsessa/noets](https://github.com/Gaunsessa/noets)

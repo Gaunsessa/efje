@@ -14,7 +14,7 @@ Projects:
    - [GB Photography](javascript:swapText('gbphoto'))
    - [Espgbprint](javascript:swapText('espgbprint'))
    - [Dino VS](javascript:swapText('dinovs'))
-   - [Notes](javascript:swapText('notes'))
+   - [Noets](javascript:swapText('noets'))
    - [Game Jams](javascript:swapText('gamejams'))
    - [Others](javascript:swapText('others'))
  
