@@ -1,5 +1,7 @@
 [../](javascript:swapText('main'))
 
+<br>
+
 Some small projects I've done.
 
 <br>
