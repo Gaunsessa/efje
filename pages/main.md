@@ -12,6 +12,7 @@ Projects:
    - [ChatHuman](javascript:swapText('chathuman'))
    - [Vibe HTTP](javascript:swapText('vibehttp'))
    - [Espgbprint](javascript:swapText('espgbprint'))
+   - [Lornch](javascript:swapText('lornch'))
    - [Dino VS](javascript:swapText('dinovs'))
    - [Noets](javascript:swapText('noets'))
    - [Game Jams](javascript:swapText('gamejams'))
