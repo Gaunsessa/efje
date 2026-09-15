@@ -1,7 +1,3 @@
-[../](javascript:swapText('main'))
-
-<br>
-
 <details open>
 <summary>Best-of</summary>
 

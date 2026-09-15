@@ -13,17 +13,344 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="css/style.css">
    <script src="js/snake.js"></script>
+   <script src="js/history.js"></script>
    <script src="js/gb.js"></script>
    <script src="js/main.js" defer></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.0/showdown.min.js"></script>
    <title>;-;</title>
 </head>
 <body>
-   <div id="container">
-      <img src="img/cats/poppy.jpg" alt="cat" id="cat" onclick="swapCat()">
-      <div id="text"></div>
-      <!-- Put ASCII water simulation under the image -->
+   <div class="site-layout">
+      <div class="layout-lane layout-lane--left">
+         <main id="container">
+            <section id="text" class="markdown-content">
+<p>Gus - <a href="mailto:gus@ef.je">gus@ef.je</a> | <a href="https://www.github.com/Gaunsessa">github.com/Gaunsessa</a></p>
+<img class="cat" src="img/cats/poppy.jpg" alt="Poppy the cat" onclick="swapCat(this)">
+<p>Growing and squeezing linear algebra</p>
+<br>
+<p><a href="#education">Education</a> |
+<a href="#work-history">Work</a> |
+<a href="#projects">Projects</a> |
+<a href="#photography">Photos</a></p>
+<br>
+<details class="history-section" id="education" open>
+<summary>Education</summary>
+<div class="history-list">
+<history-entry src="img/unsw.jpg" alt="UNSW Logo" heading="UNSW" description="Bachelor of Computer Science (AI)" dates="2025 - 2026"></history-entry>
+<p><history-entry src="img/uc.jpg" alt="UC Logo" heading="University of Canberra" description="Bachelor of Engineering (Software &amp; AI)" dates="2023 - transferred"></history-entry></p>
+</div>
+</details>
+<details class="history-section" id="work-history" open>
+<summary>Work history</summary>
+<div class="history-list">
+<history-entry src="img/vxb.jpg" alt="VXB Logo" heading="VXB Aerospace" description="AI &amp; Software Engineering Internship" dates="2025 - 2025"></history-entry>
+<p><history-entry src="img/iplay.jpg" alt="iPlay Logo" heading="iPlay Australia" description="Technician &amp; Supervisor" dates="2023 - 2025"></history-entry></p>
+</div>
+</details>
+            </section>
+
+            <section id="print-text" class="markdown-content">
+<p>Angus Chapman -</p>
+<p><a href="tel:0421147181">0421 147 181</a> |
+<a href="mailto:gus@ef.je">gus@ef.je</a></p>
+<p><a href="https://ef.je">https://ef.je</a> |
+<a href="https://www.github.com/Gaunsessa">github.com/Gaunsessa</a></p>
+<img class="cat" src="img/cats/poppy.jpg" alt="Poppy the cat">
+<p>Growing and squeezing linear algebra</p>
+<br>
+<details class="history-section" id="print-education" open>
+<summary>Education</summary>
+<div class="history-list">
+<history-entry src="img/unsw.jpg" alt="UNSW Logo" heading="UNSW" description="Bachelor of Computer Science (AI)" dates="2025 - 2026"></history-entry>
+<history-entry src="img/uc.jpg" alt="UC Logo" heading="University of Canberra" description="Bachelor of Engineering (Software)" dates="2023 - transferred"></history-entry>
+</div>
+</details>
+<details class="history-section" id="print-work-history" open>
+<summary>Work history</summary>
+<div class="history-list">
+<history-entry src="img/vxb.jpg" alt="VXB Logo" heading="VXB Aerospace" description="AI &amp; Software Engineering Internship" dates="2025 - 2025"></history-entry>
+<history-entry src="img/iplay.jpg" alt="iPlay Logo" heading="iPlay Australia" description="Technician &amp; Supervisor" dates="2023 - 2025"></history-entry>
+</div>
+</details>
+            </section>
+         </main>
+
+         <div id="left-project-list" class="lane-projects">
+            <article class="project project--left" id="photography" style="--mobile-order: 2">
+               <details class="project-details" open>
+                  <summary>Photography</summary>
+                  <div class="project-content">
+<details open>
+<summary>Best-of</summary>
+<p><gb-photo src="gbphotos/bestof/paper randall.png"></gb-photo>
+<gb-photo src="gbphotos/bestof/farris wheel.png"></gb-photo>
+<gb-photo src="gbphotos/bestof/randall love.png"></gb-photo>
+<gb-photo src="gbphotos/bestof/pelican caravan park.png"></gb-photo>
+<gb-photo src="gbphotos/bestof/skooba.png"></gb-photo>
+<gb-photo src="gbphotos/bestof/randall stairs.png"></gb-photo>
+<gb-photo src="gbphotos/bestof/skyline close.png"></gb-photo>
+<gb-photo src="gbphotos/bestof/poppy.png"></gb-photo></p>
+</details>
+<!-- Brisbane 2024 -->
+<details>
+<summary>Brisbane 2024</summary>
+<!-- #### Beginning of the train ride
+<gb-photo src="gbphotos/brisbane 2024/randall and i 1.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/randall and i 2.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/randall and i 3.png"></gb-photo>
+
+#### After the 10 hour train ride
+<gb-photo src="gbphotos/brisbane 2024/me %3F.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/randall.png"></gb-photo> -->
+<h4>Brisbane art exhibition</h4>
+<p><gb-photo src="gbphotos/brisbane 2024/paper randall 1.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/paper randall 2.png"></gb-photo></p>
+<h4>Coffs Harbour Wildlife Sanctuary</h4>
+<p><gb-photo src="gbphotos/brisbane 2024/peacock.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/penguin.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/penguins.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/penguinss.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/dolphin.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/randall seal.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/seal.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/turtle.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/yabbi 1.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/yabbi 2.png"></gb-photo></p>
+<h4>Nambucca Heads chicken</h4>
+<p><gb-photo src="gbphotos/brisbane 2024/chicken.png"></gb-photo></p>
+<!-- <gb-photo src="gbphotos/brisbane 2024/chicken randall.png"></gb-photo> -->
+<h4>Brisbane</h4>
+<p><gb-photo src="gbphotos/brisbane 2024/farris wheel.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/brisbane night.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/randall love.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/temple.png"></gb-photo></p>
+<h4>Sydney</h4>
+<p><gb-photo src="gbphotos/brisbane 2024/bird pile.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/coke.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/donut.png"></gb-photo>
+<gb-photo src="gbphotos/brisbane 2024/starbucks.png"></gb-photo></p>
+</details>
+<!-- Melbourne 2024 -->
+<details>
+<summary>Melbourne 2024</summary>
+<!-- #### Pre-train happiness
+<gb-photo src="gbphotos/melbourne 2024/randall and i.png"></gb-photo> -->
+<h4>Nambucca Heads cow</h4>
+<p><gb-photo src="gbphotos/melbourne 2024/cow 1.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/cow 2.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/cow 3.png"></gb-photo></p>
+<h4>Melbourne Zoo</h4>
+<p><gb-photo src="gbphotos/melbourne 2024/giraffe 1.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/giraffe 2.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/giraffe 3.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/giraffe 4.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/lizard 1.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/lizard 2.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/lizard 3.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/%3F.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/meerkat.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/turtle.png"></gb-photo></p>
+<h4>Melbourne skylines</h4>
+<!-- <gb-photo src="gbphotos/melbourne 2024/randall skyline 1.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/randall skyline 2.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/randall skyline 3.png"></gb-photo> -->
+<p><gb-photo src="gbphotos/melbourne 2024/skyline 1.png"></gb-photo>
+<gb-photo src="gbphotos/melbourne 2024/skyline 2.png"></gb-photo></p>
+</details>
+<!-- Sydney 2023 -->
+<details>
+<summary>Sydney 2023</summary>
+<h4>Ibus park</h4>
+<p><gb-photo src="gbphotos/sydney q3 2023/ibus.png"></gb-photo></p>
+<!-- <gb-photo src="gbphotos/sydney q3 2023/randall.png"></gb-photo> -->
+<p><gb-photo src="gbphotos/sydney q3 2023/birds 1.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q3 2023/birds 2.png"></gb-photo></p>
+<h4>Sydney Aquarium</h4>
+<p><gb-photo src="gbphotos/sydney q3 2023/skooba.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q3 2023/dugong 2.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q3 2023/dugong.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q3 2023/fish.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q3 2023/penguins.png"></gb-photo></p>
+<h4>Phone Cone</h4>
+<p><gb-photo src="gbphotos/sydney q3 2023/phone cone.png"></gb-photo></p>
+<h4>Binocular view</h4>
+<p><gb-photo src="gbphotos/sydney q3 2023/binocular 1.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q3 2023/binocular 2.png"></gb-photo></p>
+<h4>Skylines</h4>
+<p><gb-photo src="gbphotos/sydney q3 2023/skyline.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q3 2023/skyline 2.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q3 2023/skyline 3.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q3 2023/bird eye.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q3 2023/landscape.png"></gb-photo></p>
+</details>
+<!-- Nambucca 2023 -->
+<details>
+<summary>Nambucca 2023</summary>
+<h4>Naive pre-train happiness</h4>
+<!-- <gb-photo src="gbphotos/nambucca 2023/randall.png"></gb-photo> -->
+<p><gb-photo src="gbphotos/nambucca 2023/bag skateboard.png"></gb-photo>
+<gb-photo src="gbphotos/nambucca 2023/randall train.png"></gb-photo>
+<gb-photo src="gbphotos/nambucca 2023/train 1.png"></gb-photo>
+<gb-photo src="gbphotos/nambucca 2023/train 2.png"></gb-photo>
+<gb-photo src="gbphotos/nambucca 2023/feet.png"></gb-photo></p>
+<h4>Adventures</h4>
+<p><gb-photo src="gbphotos/nambucca 2023/randall stairs.png"></gb-photo>
+<gb-photo src="gbphotos/nambucca 2023/bike.png"></gb-photo>
+<gb-photo src="gbphotos/nambucca 2023/stairs.png"></gb-photo></p>
+<h4>Cows</h4>
+<p><gb-photo src="gbphotos/nambucca 2023/cows 1.png"></gb-photo>
+<gb-photo src="gbphotos/nambucca 2023/cows 2.png"></gb-photo></p>
+<h4>Bridges</h4>
+<p><gb-photo src="gbphotos/nambucca 2023/bridge.png"></gb-photo>
+<gb-photo src="gbphotos/nambucca 2023/cow bridge 1.png"></gb-photo>
+<gb-photo src="gbphotos/nambucca 2023/cow bridge 2.png"></gb-photo>
+<gb-photo src="gbphotos/nambucca 2023/train bridge.png"></gb-photo></p>
+<h4>Pelican Caravan Park</h4>
+<p><gb-photo src="gbphotos/nambucca 2023/pelican caravan park.png"></gb-photo>
+<gb-photo src="gbphotos/nambucca 2023/bus stop.png"></gb-photo></p>
+<h4>Keg urinal</h4>
+<p><gb-photo src="gbphotos/nambucca 2023/keg urinal.png"></gb-photo></p>
+</details>
+<!-- Sydney 2023 -->
+<details>
+<summary>Sydney 2023</summary>
+<h4>Skylines</h4>
+<p><gb-photo src="gbphotos/sydney q1 2023/skyline less trees.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q1 2023/skyline trees.png"></gb-photo></p>
+<h4>Waterman</h4>
+<p><gb-photo src="gbphotos/sydney q1 2023/waterman 1.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q1 2023/waterman 2.png"></gb-photo>
+<gb-photo src="gbphotos/sydney q1 2023/waterman 3.png"></gb-photo></p>
+</details>
+<!-- Sydney 2022 -->
+<details>
+<summary>Sydney 2022</summary>
+<h4>Harbour Bridge</h4>
+<p><gb-photo src="gbphotos/sydney 2022/harbor bridge.png"></gb-photo>
+<gb-photo src="gbphotos/sydney 2022/harbor bridge 2.png"></gb-photo>
+<gb-photo src="gbphotos/sydney 2022/harbor bridge 3.png"></gb-photo>
+<gb-photo src="gbphotos/sydney 2022/harbor bridge far 2.png"></gb-photo>
+<gb-photo src="gbphotos/sydney 2022/harbor bridge far.png"></gb-photo></p>
+<h4>Skylines</h4>
+<p><gb-photo src="gbphotos/sydney 2022/skyline close.png"></gb-photo>
+<gb-photo src="gbphotos/sydney 2022/skyline.png"></gb-photo>
+<gb-photo src="gbphotos/sydney 2022/skyline far 2.png"></gb-photo>
+<gb-photo src="gbphotos/sydney 2022/skyline far.png"></gb-photo>
+<gb-photo src="gbphotos/sydney 2022/vetrigo.png"></gb-photo>
+<gb-photo src="gbphotos/sydney 2022/vetigo 2.png"></gb-photo></p>
+<h4>Protest</h4>
+<p><gb-photo src="gbphotos/sydney 2022/protest.png"></gb-photo></p>
+<h4>Fellows</h4>
+<p><gb-photo src="gbphotos/sydney 2022/ben four.png"></gb-photo>
+<gb-photo src="gbphotos/sydney 2022/kirk.png"></gb-photo>
+<gb-photo src="gbphotos/sydney 2022/group.png"></gb-photo></p>
+<h4>Fortnite Map?</h4>
+<p><gb-photo src="gbphotos/sydney 2022/fortnite island.png"></gb-photo></p>
+<h4>Water</h4>
+<p><gb-photo src="gbphotos/sydney 2022/cruise ship.png"></gb-photo>
+<gb-photo src="gbphotos/sydney 2022/opra house.png"></gb-photo></p>
+</details>
+                  </div>
+               </details>
+            </article>
+         </div>
+      </div>
+
+      <div class="layout-lane layout-lane--right">
+         <div id="right-project-list" class="lane-projects">
+            <article class="project project--right" id="projects" style="--mobile-order: 1">
+               <details class="project-details" open>
+                  <summary>Projects</summary>
+                  <div id="projects-text" class="project-content">
+<h2>Orangzi</h2>
+<p>Mandarin learning platform with a monkeytype-esk gameplay loop.</p>
+<p>Currently building a LLM based RAG pipeline for streamlining language learning.</p>
+<h2>Taikor</h2>
+<p>Automated music transcription for Taiko no Tatsujin.</p>
+<p>Trained a LSTM based neural network to automatically generate musical charts.</p>
+<h2>GeoGuide</h2>
+<p>Tour guide for the lost dwellings of GeoCities.</p>
+<p>Created a recommender system for the lost websites of GeoCities,
+used novel LLM based automated systems to process the raw big data upwards of five terabytes.</p>
+<h2>GBColorize</h2>
+<p>Bringing color to a black and white toy camera from the 80s.</p>
+<p>Distributivity trained a bespoke AI model to colorized black and white Gameboy photos.</p>
+<h2>Other</h2>
+<p>Many other smaller projects spanning back years. Please see my Github.</p>
+<h2>Other</h2>
+<details>
+<summary>ChatHuman</summary>
+<p>Created during the 2nd 2025 <a href="https://terriblehack.com/">Terrible Ideas Hackathon</a>.
+ChatHuman shows you what life is like as an LLM.</p>
+<p>Hosted Version: <a href="https://chathuman.net">ChatHuman.net</a></p>
+<p>Github: <a href="https://github.com/Gaunsessa/ChatHuman">Gaunsessa/ChatHuman</a></p>
+</details>
+<details>
+<summary>Vibe HTTP</summary>
+<p>Turns a LLM into a webserver.</p>
+<p>Given any prompt the LLM will generate raw HTTP responses.</p>
+<p>Hosted Version: <a href="https://vibe.ef.je">vibe.ef.je</a></p>
+<p>Github: <a href="https://github.com/Gaunsessa/vibehttp">Gaunsessa/vibehttp</a></p>
+</details>
+<details>
+<summary>Espgbprint</summary>
+<p>Espgbprint is a Gameboy Printer emulator for the ESP8266.</p>
+<p>Github: <a href="https://github.com/Gaunsessa/espgbprint">Gaunsessa/espgbprint</a></p>
+<p><gb-photo src="gbphotos/bestof/poppy.png"></gb-photo></p>
+</details>
+<details>
+<summary>Lornch</summary>
+<p>Minimal Android launcher specifically designed for the flip phones.</p>
+<img src="https://github.com/Gaunsessa/lornch/raw/main/lornch.png" alt="lornch" width="200">
+<p>Github: <a href="https://github.com/Gaunsessa/lornch">Gaunsessa/lornch</a></p>
+</details>
+<details>
+<summary>Dino VS</summary>
+<p>Dino VS is an online multiplayer 1v1 site for the chromium dinosaur game.</p>
+<p>Hosted Version: <a href="https://dino.ef.je">dino.ef.je</a></p>
+<p>Github: <a href="https://github.com/Gaunsessa/dinovs">Gaunsessa/dinovs</a></p>
+</details>
+<details>
+<summary>Notes</summary>
+<p>Simple pastebin like notes site.</p>
+<p>Hosted Version: <a href="https://no.ef.je">no.ef.je</a></p>
+<p>Github: <a href="https://github.com/Gaunsessa/noets">Gaunsessa/noets</a></p>
+</details>
+<details>
+<summary>Game Jams</summary>
+<p>Some game jams I have completed in the past with a mate.</p>
+<p>Climb Lord: <a href="https://j3llybee.itch.io/climblord">itch.io/climblord</a></p>
+<p>Keyboard Salad: <a href="https://j3llybee.itch.io/keyboard-salad">itch.io/keyboard-salad</a></p>
+</details>
+<details>
+<summary>Other other</summary>
+<p>Some small projects I've done.</p>
+<p>Odin Errors: <a href="https://github.com/Gaunsessa/OdinErrors">Gaunsessa/OdinErrors</a></p>
+<p>visnek: <a href="https://github.com/Gaunsessa/visnek">Gaunsessa/visnek</a></p>
+<p>img2ascii: <a href="https://github.com/Gaunsessa/img2ascii">Gaunsessa/img2ascii</a></p>
+</details>
+                  </div>
+
+                  <div id="projects-print-text" class="project-content">
+<h2>Orangzi</h2>
+<p>Mandarin learning platform with a monkeytype-esk gameplay loop.</p>
+<p>Currently building a LLM based RAG pipeline for streamlining language learning.</p>
+<h2>Taikor</h2>
+<p>Automated music transcription for Taiko no Tatsujin.</p>
+<p>Trained a LSTM based neural network to automatically generate musical charts.</p>
+<h2>GeoGuide</h2>
+<p>Tour guide for the lost dwellings of GeoCities.</p>
+<p>Created a recommender system for the lost websites of GeoCities,
+used novel LLM based automated systems to process the raw big data upwards of five terabytes.</p>
+<h2>GBColorize</h2>
+<p>Bringing color to a black and white toy camera from the 80s.</p>
+<p>Distributivity trained a bespoke AI model to colorized black and white Gameboy photos.</p>
+<h2>Other</h2>
+<p>Many other smaller projects spanning back years. Please see my Github.</p>
+                  </div>
+               </details>
+            </article>
+         </div>
+      </div>
    </div>
-   <!-- <pre id="ascii">hfuewifhewiufhewui</pre> -->
 </body>
 </html>

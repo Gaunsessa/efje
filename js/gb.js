@@ -1,5 +1,9 @@
-// Array of GBC palettes
-const palettes = [
+const PHOTO_WIDTH = 160;
+const PHOTO_HEIGHT = 144;
+const THUMBNAIL_INSET = 16;
+const BACKDROP_FADE_DURATION = 600;
+
+const PALETTES = [
    [[255, 255, 255], [166, 167, 166], [ 81,  81,  81], [  0,   0,   0]],
    [[255, 255, 255], [255, 134, 133], [149,  55,  55], [  0,   0,   0]],
    [[255, 255, 255], [255, 175,  99], [132,  45,   0], [  0,   0,   0]],
@@ -14,184 +18,232 @@ const palettes = [
    [[  0,   0,   0], [  0, 133, 135], [255, 223,   0], [255, 255, 255]],
 ];
 
-// Array of all photos
-let GB_PHOTOS = [];
+const PHOTO_DIALOG = document.createElement("div");
+const PHOTO_BACKDROP = document.createElement("div");
 
-// Full screen view
-const GB_LARGE = document.createElement("div");
+PHOTO_DIALOG.id = "gb-large";
+PHOTO_DIALOG.tabIndex = -1;
+PHOTO_DIALOG.setAttribute("role", "dialog");
+PHOTO_DIALOG.setAttribute("aria-modal", "true");
+PHOTO_DIALOG.setAttribute("aria-label", "Expanded photograph");
+PHOTO_BACKDROP.id = "gb-backdrop";
+PHOTO_BACKDROP.setAttribute("aria-hidden", "true");
 
-GB_LARGE.id = "gb-large"
-GB_LARGE.idx = 0;
-GB_LARGE.palette = 0;
-GB_LARGE.innerHTML = `
-   <button>〈</button>
-   <canvas width='160' height='144'></canvas>
-   <button>〉</button>
-   <style>
-      #gb-large {
-         display: flex;
-         position: fixed;
+let activePhoto = null;
+let activePalette = 0;
+let photoTransitionRunning = false;
+let photoPlaceholder = null;
 
-         top: 0;
-         left: 0;
+function drawExpandedPhoto(photo) {
+   photo.canvas.width = PHOTO_WIDTH;
+   photo.canvas.height = PHOTO_HEIGHT;
+   const ctx = photo.canvas.getContext("2d");
 
-         width: 100vw;
-         height: 100vh;
+   ctx.drawImage(photo.img, 0, 0, PHOTO_WIDTH, PHOTO_HEIGHT);
+}
 
-         justify-content: center;
-         align-items: center;
+function drawThumbnail(photo) {
+   photo.canvas.width = PHOTO_WIDTH - THUMBNAIL_INSET * 2;
+   photo.canvas.height = PHOTO_HEIGHT - THUMBNAIL_INSET * 2;
+   const ctx = photo.canvas.getContext("2d");
 
-         gap: 2em;
+   ctx.drawImage(
+      photo.img,
+      -THUMBNAIL_INSET,
+      -THUMBNAIL_INSET,
+      PHOTO_WIDTH,
+      PHOTO_HEIGHT,
+   );
+}
 
-         backdrop-filter: blur(10px);
-      }
+async function transitionPhoto(update) {
+   let updated = false;
+   const applyUpdate = () => {
+      if (updated) return;
 
-      canvas {
-         display: inline-block;
+      updated = true;
+      update();
+   };
 
-         width: 75vmin;
-         height: 75vmin;
-
-         image-rendering: pixelated;
-
-         cursor: pointer;
-      }
-
-      button {
-         font-size: 8em;
-         font-weight: lighter;
-
-         color: #0F0F0FF0;
-
-         background-color: #00000000;
-
-         cursor: pointer;
-         user-select: none;
-      }
-
-      @media (max-width:900px) {
-         #gb-large {
-            flex-direction: column;
-         }
-
-         button {
-            transform: rotate(90deg);
-         }
-      }
-   </style>
-`;
-
-// TODO: on mobile make the arrows on the top and bottom
-
-// background-color: #0A0A0ACC;
-
-// Background
-GB_LARGE.addEventListener("click", event => {
-   GB_LARGE.palette = 0;
-   GB_LARGE.remove();
-});
-
-// Image
-GB_LARGE.children[1].addEventListener("click", event => {
-   event.stopPropagation();
-
-   const next_palette = (GB_LARGE.palette + 1) % palettes.length;
-
-   const ctx = GB_LARGE.children[1].getContext("2d");
-
-   let data   = ctx.getImageData(0, 0, 160, 144);
-   let pixels = data.data;
-
-   for (let p = 0; p < pixels.length; p += 4)
-      for (let i = 0; i < 4; i++)
-         if (pixels[p + 0] == palettes[GB_LARGE.palette][i][0] && 
-             pixels[p + 1] == palettes[GB_LARGE.palette][i][1] &&
-             pixels[p + 2] == palettes[GB_LARGE.palette][i][2]) {
-            pixels[p + 0] = palettes[next_palette][i][0];
-            pixels[p + 1] = palettes[next_palette][i][1];
-            pixels[p + 2] = palettes[next_palette][i][2];
-
-            break;
-         }
-
-   GB_LARGE.palette = next_palette;
-
-   ctx.putImageData(data, 0, 0);
-});
-
-// Left
-GB_LARGE.children[0].addEventListener("click", event => {
-   event.stopPropagation();
-
-   GB_LARGE.palette = 0;
-   GB_LARGE.idx = Math.min(GB_PHOTOS.length - 1, Math.max(0, GB_LARGE.idx - 1));
-
-   GB_LARGE.children[1].getContext("2d").drawImage(GB_PHOTOS[GB_LARGE.idx].img, 0, 0);
-});
-
-// Right
-GB_LARGE.children[2].addEventListener("click", event => {
-   event.stopPropagation();
-
-   GB_LARGE.palette = 0;
-   GB_LARGE.idx = Math.min(GB_PHOTOS.length - 1, Math.max(0, GB_LARGE.idx + 1));
-
-   GB_LARGE.children[1].getContext("2d").drawImage(GB_PHOTOS[GB_LARGE.idx].img, 0, 0);
-});
-
-// GBphoto
-class GBPhoto extends HTMLElement {
-   constructor() {
-      super();
+   if (!document.startViewTransition) {
+      applyUpdate();
+      return;
    }
 
+   activePhoto.style.viewTransitionName = "gb-photo";
+
+   try {
+      const transition = document.startViewTransition(applyUpdate);
+
+      await transition.finished;
+   } catch (error) {
+      console.error("Photo transition failed:", error);
+      applyUpdate();
+   } finally {
+      activePhoto?.style.removeProperty("view-transition-name");
+   }
+}
+
+function waitForPaint() {
+   return new Promise(resolve => {
+      requestAnimationFrame(() => requestAnimationFrame(resolve));
+   });
+}
+
+async function openPhoto(photo) {
+   if (photoTransitionRunning || PHOTO_DIALOG.isConnected || !photo.img.complete) return;
+
+   photoTransitionRunning = true;
+   activePhoto = photo;
+   activePalette = 0;
+   photoPlaceholder = document.createElement("span");
+   photoPlaceholder.className = "gb-photo-placeholder";
+   photoPlaceholder.style.width = `${photo.offsetWidth}px`;
+   photoPlaceholder.style.height = `${photo.offsetHeight}px`;
+
+   document.body.append(PHOTO_BACKDROP, PHOTO_DIALOG);
+   await waitForPaint();
+   PHOTO_BACKDROP.classList.add("gb-backdrop--open");
+   await waitForPaint();
+
+   await transitionPhoto(() => {
+      photo.before(photoPlaceholder);
+      drawExpandedPhoto(photo);
+      photo.classList.add("gb-photo--expanded");
+      PHOTO_DIALOG.append(photo);
+   });
+
+   photoTransitionRunning = false;
+   PHOTO_DIALOG.focus({ preventScroll: true });
+}
+
+async function closePhoto() {
+   if (photoTransitionRunning || !PHOTO_DIALOG.isConnected) return;
+
+   const source = activePhoto;
+   photoTransitionRunning = true;
+
+   PHOTO_BACKDROP.classList.remove("gb-backdrop--open");
+   const backdropFade = new Promise(resolve => {
+      window.setTimeout(resolve, BACKDROP_FADE_DURATION + 50);
+   });
+   await waitForPaint();
+
+   await transitionPhoto(() => {
+      source.classList.remove("gb-photo--expanded");
+      drawThumbnail(source);
+      photoPlaceholder.replaceWith(source);
+   });
+
+   await backdropFade;
+
+   PHOTO_BACKDROP.remove();
+   PHOTO_DIALOG.remove();
+   photoPlaceholder = null;
+   activePalette = 0;
+   activePhoto = null;
+   photoTransitionRunning = false;
+   source?.focus({ preventScroll: true });
+}
+
+PHOTO_DIALOG.addEventListener("click", closePhoto);
+
+function cyclePalette() {
+   if (photoTransitionRunning || !activePhoto) return;
+
+   const nextPalette = (activePalette + 1) % PALETTES.length;
+   const ctx = activePhoto.canvas.getContext("2d");
+   const data = ctx.getImageData(0, 0, PHOTO_WIDTH, PHOTO_HEIGHT);
+   const pixels = data.data;
+
+   for (let pixel = 0; pixel < pixels.length; pixel += 4) {
+      for (let color = 0; color < 4; color++) {
+         if (pixels[pixel + 0] === PALETTES[activePalette][color][0] &&
+             pixels[pixel + 1] === PALETTES[activePalette][color][1] &&
+             pixels[pixel + 2] === PALETTES[activePalette][color][2]) {
+            pixels[pixel + 0] = PALETTES[nextPalette][color][0];
+            pixels[pixel + 1] = PALETTES[nextPalette][color][1];
+            pixels[pixel + 2] = PALETTES[nextPalette][color][2];
+            break;
+         }
+      }
+   }
+
+   activePalette = nextPalette;
+   ctx.putImageData(data, 0, 0);
+}
+
+document.addEventListener("keydown", event => {
+   if (event.key === "Escape" && PHOTO_DIALOG.isConnected) {
+      closePhoto();
+   }
+});
+
+class GBPhoto extends HTMLElement {
    connectedCallback() {
+      if (this.shadowRoot) return;
+
       const shadow = this.attachShadow({ mode: "open" });
 
       this.canvas = document.createElement("canvas");
-      this.canvas.width = 160 - 32;
-      this.canvas.height = 144 - 32;     
+      this.canvas.width = PHOTO_WIDTH - THUMBNAIL_INSET * 2;
+      this.canvas.height = PHOTO_HEIGHT - THUMBNAIL_INSET * 2;
 
-      this.img = new Image(160, 144);
+      this.img = new Image(PHOTO_WIDTH, PHOTO_HEIGHT);
       this.img.src = this.getAttribute("src");
 
       this.img.onload = () => {
-         let ctx = this.canvas.getContext("2d");
-
-         ctx.drawImage(this.img, -16, -16, 160, 144);
-      } 
+         drawThumbnail(this);
+      };
 
       const style = document.createElement("style");
       style.textContent = `
-         canvas {
-            image-rendering: pixelated;
+         :host {
+            display: inline-block;
+            line-height: 0;
+         }
 
+         canvas {
+            display: block;
+            image-rendering: pixelated;
+            cursor: zoom-in;
+         }
+
+         :host(.gb-photo--expanded) canvas {
+            width: min(80vw, 88.889vh);
+            height: min(72vw, 80vh);
             cursor: pointer;
          }
       `;
 
-      shadow.appendChild(this.canvas);
-      shadow.appendChild(style);
+      shadow.append(style, this.canvas);
 
-      // Callbacks
-      this.addEventListener("click", this.click);
+      this.tabIndex = 0;
+      this.setAttribute("role", "button");
+      this.setAttribute("aria-label", "Expand photograph");
 
-      // Register this as an element
-      GB_PHOTOS.push(this);
-   }
+      this.addEventListener("click", event => {
+         event.stopPropagation();
 
-   disconnectedCallback() {
-      GB_PHOTOS.splice(GB_PHOTOS.indexOf(this), 1);
-   }
+         if (this === activePhoto && PHOTO_DIALOG.isConnected) {
+            cyclePalette();
+         } else {
+            openPhoto(this);
+         }
+      });
 
-   click(event) {
-      event.stopPropagation();
+      this.addEventListener("keydown", event => {
+         if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
 
-      GB_LARGE.idx = GB_PHOTOS.indexOf(this);
-      GB_LARGE.children[1].getContext("2d").drawImage(this.img, 0, 0);
-      document.body.appendChild(GB_LARGE);
+            if (this === activePhoto && PHOTO_DIALOG.isConnected) {
+               cyclePalette();
+            } else {
+               openPhoto(this);
+            }
+         }
+      });
    }
 }
 
-// Bind gbphoto
 customElements.define("gb-photo", GBPhoto);

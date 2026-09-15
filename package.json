@@ -1,0 +1,11 @@
+{
+   "private": true,
+   "type": "module",
+   "scripts": {
+      "build": "node build.mjs",
+      "dev": "node build.mjs --dev"
+   },
+   "devDependencies": {
+      "markdown-it": "^14.1.0"
+   }
+}
